@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api", router)
+app.use("/api", router);
 
 app.all("/*", (req, res) => {
   res.status(404).send({
