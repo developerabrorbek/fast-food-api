@@ -7,10 +7,12 @@ const CategorySchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    foods: {
-      type: mongoose.SchemaTypes.Array,
-      ref: "Food"
-    }
+    foods: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Food",
+      },
+    ],
   },
   {
     collection: "categories",
