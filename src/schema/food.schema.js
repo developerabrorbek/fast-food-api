@@ -7,3 +7,9 @@ export const createFoodSchema = Joi.object({
   imageUrl: Joi.string(),
   category: Joi.string().required(),
 }).required();
+
+export const updateFoodSchema = Joi.object({
+  name: Joi.string(),
+  description: Joi.string(),
+  price: Joi.number().positive(),
+});
