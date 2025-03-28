@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema(
       match:
         /^(9[012345789]|6[125679]|7[0123456789]|3[3]|8[8]|2[0]|5[05])[0-9]{7}$/,
     },
+    role: {
+      type: mongoose.SchemaTypes.String,
+      enum: ["USER", "OWNER", "ADMIN"],
+      default: "USER",
+    },
     imageUrl: {
       type: mongoose.SchemaTypes.String,
       required: false,

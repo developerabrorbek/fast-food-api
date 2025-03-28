@@ -1,114 +1,127 @@
 import { isValidObjectId } from "mongoose";
 import categoryModel from "../model/category.model.js";
 import foodModel from "../model/food.model.js";
+import { BaseException } from "../exception/base.exception.js";
 
-const getAllFoods = async (req, res) => {
-  const foods = await foodModel
-    .find()
-    .populate("category", "-foods -createdAt -updatedAt")
-    .select(["-createdAt", "-updatedAt"]);
+const getAllFoods = async (req, res, next) => {
+  try {
+    const foods = await foodModel
+      .find()
+      .populate("category", "-foods -createdAt -updatedAt")
+      .select(["-createdAt", "-updatedAt"]);
 
-  res.send({
-    message: "success",
-    count: foods.length,
-    data: foods,
-  });
+    res.send({
+      message: "success",
+      count: foods.length,
+      data: foods,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
-const getOneFood = async (req, res) => {
-  const { id } = req.params;
+const getOneFood = async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-  if (!isValidObjectId(id)) {
-    return res.status(400).send({
-      message: `Given ID: ${id} is not valid Object ID`,
-    });
-  }
-
-  const food = await foodModel
-    .findById(id)
-    .populate("category", "-foods -createdAt -updatedAt")
-    .select(["-createdAt", "-updatedAt"]);
-
-  res.send({
-    message: "success",
-    data: food,
-  });
-};
-
-const createFood = async (req, res) => {
-  const { name, price, category, description, imageUrl } = req.body;
-
-  const foundedCategory = await categoryModel.findById(category);
-
-  if (!foundedCategory) {
-    return res.status(404).send({
-      message: `Category with ID: ${category} not found`,
-    });
-  }
-
-  const food = await foodModel.create({
-    name,
-    price,
-    category,
-    description,
-    imageUrl,
-  });
-
-  await categoryModel.updateOne(
-    { _id: category },
-    {
-      $push: {
-        foods: food._id,
-      },
+    if (!isValidObjectId(id)) {
+      throw new BaseException(`Given ID: ${id} is not valid Object ID`, 400);
     }
-  );
 
-  res.status(201).send({
-    message: "success",
-    data: food,
-  });
+    const food = await foodModel
+      .findById(id)
+      .populate("category", "-foods -createdAt -updatedAt")
+      .select(["-createdAt", "-updatedAt"]);
+
+    res.send({
+      message: "success",
+      data: food,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
-const updateFood = async (req, res) => {
-  const { id } = req.params;
-  const { name, description, price } = req.body;
+const createFood = async (req, res, next) => {
+  try {
+    const { name, price, category, description, imageUrl } = req.body;
 
-  if (!isValidObjectId(id)) {
-    return res.status(400).send({
-      message: `Given ID: ${id} is not valid Object ID`,
-    });
-  }
+    const foundedCategory = await categoryModel.findById(category);
 
-  const food = await foodModel.findByIdAndUpdate(
-    id,
-    {
+    if (!foundedCategory) {
+      throw new BaseException(`Category with ID: ${category} not found`, 400);
+    }
+
+    const food = await foodModel.create({
       name,
-      description,
       price,
-    },
-    {
-      new: true,
-    }
-  );
+      category,
+      description,
+      imageUrl,
+    });
 
-  res.send({
-    message: "yangilandi",
-    data: food,
-  });
+    await categoryModel.updateOne(
+      { _id: category },
+      {
+        $push: {
+          foods: food._id,
+        },
+      }
+    );
+
+    res.status(201).send({
+      message: "success",
+      data: food,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
-const deleteFood = async (req, res) => {
-  const { id } = req.params;
+const updateFood = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, description, price } = req.body;
 
-  if (!isValidObjectId(id)) {
-    return res.status(400).send({
-      message: `Given ID: ${id} is not valid Object ID`,
+    if (!isValidObjectId(id)) {
+      throw new BaseException(`Given ID: ${id} is not valid Object ID`, 400);
+    }
+
+    const food = await foodModel.findByIdAndUpdate(
+      id,
+      {
+        name,
+        description,
+        price,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.send({
+      message: "yangilandi",
+      data: food,
     });
+  } catch (error) {
+    next(error);
   }
+};
 
-  await foodModel.deleteOne({ _id: id });
+const deleteFood = async (req, res, next) => {
+  try {
+    const { id } = req.params;
 
-  res.status(204).send();
+    if (!isValidObjectId(id)) {
+      throw new BaseException(`Given ID: ${id} is not valid Object ID`, 400);
+    }
+
+    await foodModel.deleteOne({ _id: id });
+
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
 };
 
 export default { getAllFoods, getOneFood, createFood, updateFood, deleteFood };

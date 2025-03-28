@@ -41,6 +41,7 @@ Biror bir fast-food restorani uchun menyularni ko'rish va ovqatlarga buyurtma be
     - name
     - email
     - password
+    - role
     - phoneNumber
     - imageUrl
     - createdAt
