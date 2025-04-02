@@ -34,6 +34,12 @@ const userSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.String,
       required: false,
     },
+    orders: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Order",
+      },
+    ],
   },
   {
     collection: "users",
