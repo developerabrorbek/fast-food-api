@@ -134,7 +134,7 @@ const refresh = async (req, res, next) => {
     });
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
-      next(new BaseException("Refresh token expired", 422));
+      next(new BaseException("Refresh token expired", 401));
     } else if (error instanceof jwt.JsonWebTokenError) {
       next(new BaseException("Invalid refresh token", 400));
     } else {
