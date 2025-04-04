@@ -8,6 +8,7 @@ import {
   REFRESH_TOKEN_EXPIRE_TIME,
   REFRESH_TOKEN_SECRET,
 } from "../config/jwt.config.js";
+import { sendMail } from "../utils/mail.utils.js";
 
 const register = async (req, res, next) => {
   try {
@@ -31,6 +32,12 @@ const register = async (req, res, next) => {
       phoneNumber,
       name,
       password: passwordHash,
+    });
+
+    await sendMail({
+      to: email,
+      subject: "Welcome",
+      text: `Salom ${name}! Bizning Fast Food restoranimizda muvaffaqiyatli ro'yhatdan o'tdingiz`,
     });
 
     res.status(201).send({
