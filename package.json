@@ -1,6 +1,6 @@
 {
   "name": "fast-food-api",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "main": "index.js",
   "type": "module",
   "scripts": {
