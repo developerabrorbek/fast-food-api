@@ -83,6 +83,16 @@ const login = async (req, res, next) => {
       }
     );
 
+    res.cookie("accessToken", accessToken, {
+      maxAge: 60 * 1000,
+      httpOnly: true,
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      maxAge: 2 * 60 * 1000,
+      httpOnly: true,
+    });
+
     res.send({
       message: "success",
       tokens: {
