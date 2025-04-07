@@ -56,3 +56,15 @@ Biror bir fast-food restorani uchun menyularni ko'rish va ovqatlarga buyurtma be
     - orderId (FK)
     - foodId (FK)
 
+
+
+
+/   ->    Home page
+/login    -> Login
+/register  -> Register
+/forget-password -> Forgot password
+/reset-password -> Reset password
+/category -> Categories page
+/category/:categoryId -> Single category page
+/profile  -> User page    (token kerak)
+/profile/orders -> User order's page    (token kerak)

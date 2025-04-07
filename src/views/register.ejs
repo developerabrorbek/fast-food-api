@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+  </head>
+  <body>
+    <h1>Register page</h1>
+    <h4 style="color: red"><%= error %></h4>
+    <form action="/users/register" method="post">
+      <input type="text" placeholder="name" name="name" />
+      <br />
+      <input type="text" placeholder="phone" name="phoneNumber" />
+      <br />
+      <input type="email" placeholder="email" name="email" />
+      <br />
+      <input type="text" placeholder="password" name="password" />
+      <br />
+      <a href="/users/login">Already have account? Login...</a>
+      <br />
+      <button type="submit">Sign up</button>
+    </form>
+  </body>
+</html>

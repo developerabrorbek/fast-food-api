@@ -34,6 +34,18 @@ userRouter
     userController.login
   )
   .post(
+    "/forgot-password",
+    Protected(false),
+    Roles(ROLES.ALL),
+    userController.forgotPassword
+  )
+  .post(
+    "/reset-password",
+    Protected(false),
+    Roles(ROLES.ALL),
+    userController.resetPassword
+  )
+  .post(
     "/refresh",
     Protected(false),
     Roles(ROLES.ALL),

@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.String,
       required: true,
     },
+    token: {
+      type: mongoose.SchemaTypes.String,
+      required: false,
+    },
     email: {
       type: mongoose.SchemaTypes.String,
       required: true,
