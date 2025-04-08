@@ -26,10 +26,10 @@
             <%- include('partials/category', { name : ct.name, isActive: ct?.isActive, id: ct.id }) %> 
           <% }) %>
         </ul>
-        <ul class="food-list">
+        <ul class="food-list list-unstyled d-flex gap-4 justify-content-between flex-wrap">
           <% foods.forEach(f => { %>
 
-            <li><%= f.name %> </li>
+            <li><%- include('partials/food', {imageUrl: f?.imageUrl , description: f?.description, name: f?.name, price: f?.price }) %> </li>
 
           <% }) %>
         </ul>

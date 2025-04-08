@@ -18,8 +18,8 @@ app.use(cookieParser());
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
-app.use("/", pageRouter);
 app.use("/", router);
+app.use("/", pageRouter);
 
 app.all("/*", (_, res, __) => {
   res.render("404");

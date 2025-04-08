@@ -1,0 +1,13 @@
+<li class="food-item card" style="width: 20rem">
+  <img
+    src="/uploads/<%= imageUrl ? imageUrl : '' %>"
+    class="card-img-top"
+    alt="<%= name %> image"
+    height="300"
+  />
+  <div class="card-body">
+    <h5 class="card-title"><%= name %></h5>
+    <p class="card-text"><%= description ? description : "" %></p>
+    <p class="card-text"><%= price %></p>
+  </div>
+</li>
