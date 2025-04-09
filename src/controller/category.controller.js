@@ -41,13 +41,7 @@ const getOneCategory = async (req, res, next) => {
 const createCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
-
-    const foundedCategory = await categoryModel.findOne({ name });
-
-    if (foundedCategory) {
-      throw new BaseException(`Category: ${name} allaqachon mavjud`, 409);
-    }
-
+    
     const category = await categoryModel.create({ name });
 
     res.send({
@@ -55,6 +49,7 @@ const createCategory = async (req, res, next) => {
       data: category,
     });
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };
